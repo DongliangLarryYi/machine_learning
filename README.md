@@ -1,4 +1,4 @@
-# Coursera Machine Learning homework code
+# Machine Learning code
 ## This is machine learning course homework taught by Andrew Ng. 
 
 - **machine-learning-ex1:** Linear Regression
