@@ -45,23 +45,13 @@ x = zeros(n, 1);
 %              vector should look like:
 %
 %              x = [ 0 0 0 0 1 0 0 0 ... 0 0 0 0 1 ... 0 0 0 1 0 ..];
-%
-%
+
 nn = size(word_indices,1);
-
-
 for i = 1:nn
-index_word = word_indices(i);
-x(index_word) =1;
-
+    index_word = word_indices(i);
+    x(index_word) =1;
 end
 
-
-
-
-
-
 % =========================================================================
-    
 
 end
