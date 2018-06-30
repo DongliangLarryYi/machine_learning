@@ -19,9 +19,6 @@ sim = 0;
 distance = x1-x2;
 sim = exp(-(distance'*distance)/(2*sigma*sigma));
 
-
-
-
 % =============================================================
     
 end
