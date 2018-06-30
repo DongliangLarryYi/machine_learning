@@ -61,86 +61,52 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-
-
-
-
 % You need to return the following variables correctly
 p = zeros(size(X, 1), 1);
 
 h1 = sigmoid([ones(m, 1) X] * Theta1');
 h2 = sigmoid([ones(m, 1) h1] * Theta2');
 
-             h2;
-             result = y';
-             %# initialize y_vec
-             y_vec = zeros(m,num_labels);
+h2;
+result = y';
+% initialize y_vec
+y_vec = zeros(m,num_labels);
              
-             %# create a linear index from {row,result}
-             idx = sub2ind(size(y_vec),1:m,result);
+% create a linear index from {row,result}
+idx = sub2ind(size(y_vec),1:m,result);
              
-             %# set the proper elements of y_vec to 1
-             y_vec(idx) = 1;
+% set the proper elements of y_vec to 1
+y_vec(idx) = 1;
+y_vec;
 
-             y_vec;
-
-             %fprintf(here here\n')
-
-            J_matrix = -y_vec.*log(h2) - (1-y_vec).*log(1-h2);
-
-                      Theta1_col = size(Theta1,2);
-                      Theta2_col = size(Theta2,2);
-                      
-                      J = sum(sum(J_matrix))/m + lambda/(2*m) * (sum(sum(Theta1(:,2:Theta1_col).*Theta1(:,2:Theta1_col))) + sum(sum(Theta2(:,2:Theta2_col).*Theta2(:,2:Theta2_col))));
-
-
-                      D_1 = zeros(hidden_layer_size, (input_layer_size + 1));
-                      D_2 = zeros(num_labels, (hidden_layer_size + 1));
+J_matrix = -y_vec.*log(h2) - (1-y_vec).*log(1-h2);
+Theta1_col = size(Theta1,2);
+Theta2_col = size(Theta2,2);
+J = sum(sum(J_matrix))/m + lambda/(2*m) * (sum(sum(Theta1(:,2:Theta1_col).*Theta1(:,2:Theta1_col))) + sum(sum(Theta2(:,2:Theta2_col).*Theta2(:,2:Theta2_col))));
+D_1 = zeros(hidden_layer_size, (input_layer_size + 1));
+D_2 = zeros(num_labels, (hidden_layer_size + 1));
                       
 for t = 1:m
-
-                      aa_1 = X(t,:);
-                      zz_2 = Theta1 * [1, aa_1]';
-                      aa_2 = sigmoid(zz_2);
-                      zz_3 = Theta2 * [1; aa_2];
-                      aa_3 = sigmoid(zz_3);
-                      delta_3 = aa_3 - y_vec(t,:)';
-                      delta_2 = Theta2' * delta_3;
-  
-                      
-                      delta_2 = delta_2 .* [1; sigmoidGradient(zz_2)];
-                      
-                      D_2 = D_2 + delta_3 * [1;aa_2]';
-                      
-                      D_1 = D_1 + delta_2(2:end) * [1,aa_1];
-                      
-
-                      
+  aa_1 = X(t,:);
+  zz_2 = Theta1 * [1, aa_1]';
+  aa_2 = sigmoid(zz_2);
+  zz_3 = Theta2 * [1; aa_2];
+  aa_3 = sigmoid(zz_3);
+  delta_3 = aa_3 - y_vec(t,:)';
+  delta_2 = Theta2' * delta_3;
+  delta_2 = delta_2 .* [1; sigmoidGradient(zz_2)];
+  D_2 = D_2 + delta_3 * [1;aa_2]';
+  D_1 = D_1 + delta_2(2:end) * [1,aa_1];                    
 end
-                      add_1 = zeros(hidden_layer_size, (input_layer_size + 1));
-                      add_2 = zeros(num_labels, (hidden_layer_size + 1));
-                      add_1(:,2:(input_layer_size + 1)) = Theta1(:,2:(input_layer_size + 1));
 
-                      add_2(:,2:(hidden_layer_size + 1)) = Theta2(:,2:(hidden_layer_size + 1));
-                      
-                      
-                      D_2 = D_2/m + lambda * add_2/m;
-                      D_1 = D_1/m + lambda * add_1/m;
-                      
-                      
-    
-                      grad = [D_1(:) ; D_2(:)];
-                      
-                      
-                      
-                      
-
-% -------------------------------------------------------------
+add_1 = zeros(hidden_layer_size, (input_layer_size + 1));
+add_2 = zeros(num_labels, (hidden_layer_size + 1));
+add_1(:,2:(input_layer_size + 1)) = Theta1(:,2:(input_layer_size + 1));
+add_2(:,2:(hidden_layer_size + 1)) = Theta2(:,2:(hidden_layer_size + 1));
+D_2 = D_2/m + lambda * add_2/m;
+D_1 = D_1/m + lambda * add_1/m;
+grad = [D_1(:) ; D_2(:)];
 
 % =========================================================================
-
-
-
 
 end
