@@ -98,26 +98,14 @@ while ~isempty(email_contents)
     %
 
 n_voca = size(vocabList,1);
-
-
 for i = 1:n_voca
-
-if (strcmp(vocabList{i}, str))
-word_indices = [word_indices;i];
-i = n_voca +1;
-endif
-
+  if (strcmp(vocabList{i}, str))
+    word_indices = [word_indices;i];
+    i = n_voca +1;
+  endif
 endfor
 
-
-
-
-
-
-
     % =============================================================
-
-
     % Print to screen, ensuring that the output lines are not too long
     if (l + length(str) + 1) > 78
         fprintf('\n');
@@ -125,7 +113,6 @@ endfor
     end
     fprintf('%s ', str);
     l = l + length(str) + 1;
-
 end
 
 % Print footer
