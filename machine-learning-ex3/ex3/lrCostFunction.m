@@ -34,40 +34,20 @@ grad = zeros(size(theta));
 %           temp = theta; 
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
-%
-
-
-
-
 
 hypothesis = sigmoid(X*theta);
-
 predictions1 = log(hypothesis);
 Error1 = - y' * predictions1;
-
 predictions2 = log(1-hypothesis);
 Error2 = - (1 - y)' * predictions2;
-
 n = length(theta);
 remain = theta(2:n)' * theta(2:n) * lambda / (2 * m);
-
 J = 1/ m * (Error1+Error2) + remain;
-
 theta_adj = theta;
 theta_adj(1) = 0;
-
 grad = 1/m * X' * (hypothesis-y) + lambda/m * theta_adj;
 
-
-
-
-
-
-
-
-
 % =============================================================
-
 grad = grad(:);
 
 end
