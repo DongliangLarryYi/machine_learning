@@ -23,41 +23,28 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
 value = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
-
 number = length(value);
-
 error = zeros(number*number,1);
-
-
 for i = 1:number
     C = value(i);
-
     for j = 1:number
         sigma = value(j);
-model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+        model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
         predictions = svmPredict(model, Xval);
         index = (i-1)*number+j;
-error(index) = mean(double(predictions ~= yval));
-
+    error(index) = mean(double(predictions ~= yval));
     end
 end
 
-
 [Min_value, Min_index] = min(error);
-
 index_C = floor((Min_index-1)/number) + 1;
 index_sigma = mod(Min_index, number);
-
 if index_sigma == 0,
     index_sigma = number;
 end
-
 C = value(index_C);
 sigma = value(index_sigma);
-
-
 
 % =========================================================================
 
