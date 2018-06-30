@@ -21,28 +21,15 @@ grad = zeros(size(theta));
 
 predictions = X*theta;
 sqrErrors = (predictions - y).^2;
-
 J = 1/(2*m) * sum(sqrErrors);
-
 n = length(theta);
 penalty = theta(2:n)' * theta(2:n) * lambda / (2 * m);
-
 J = J + penalty;
-
-
 theta_adj = theta;
 theta_adj(1) = 0;
-
 grad = 1/m * X' * (predictions-y) + lambda/m * theta_adj;
 
-
-
-
-
-
-
 % =========================================================================
-
 grad = grad(:);
 
 end
